@@ -373,5 +373,164 @@ print(combinedList) # e,c,d,f,e,c,d döner
 
 
 for (element in newList2) {
-  print(element) # 
+  print(element) # e,c,d
 }
+
+#####################################################################
+
+# matrices
+# satır ve sütünlardan oluşan iki boyutlu vektör
+# aynı veri tipi olmak zorunda
+
+matrix0 <- matrix(1:6, nrow = 3, ncol = 2, byrow = TRUE) # NORMALDE ÖNCE SÜTUN DOLDURULUR ANCAK byrow = TRUE İLE ÖNCE SATIR DOLDURULUYOR
+matrix1 <- matrix(1:6, nrow = 3, ncol = 2) # 1'den 6'ya 3 satır 2 sütunlu matrix
+print(matrix1[1, 2]) # matrixin 1. satırının 2. sütunundaki eleman == 4 döner
+print(matrix1[1,]) # matrixin 1. satırı döner = 1 ve 4
+print(matrix1[, 1]) # matrixin 1. sütunu döner = 1, 2, 3
+print(matrix1[c(1, 2),]) # matrixin 1. ve 2. satırı döner = 1, 4 ve 2, 5
+print(matrix1[, c(1, 2)]) # matrixin 1. ve 2. sütunu döner = 1, 2, 3 ve 4, 5, 6
+
+newMatrix1 <- cbind(matrix1, c(7:9)) # totalde row sayısı kadar eleman ekleyebilirsin
+print(newMatrix1) # matrix1e yeni bir sütun ekler ve 7'dan 9'a ekler
+
+newMatrix2 <- rbind(matrix1, c(7, 8)) # totalde col sayısı kadar eleman ekleyebilirsin
+print(newMatrix2) # matrix1e yeni bir satır ekler ve 7, 8i ekler
+
+print(colSums(matrix1)) # sütunların toplamını verir, 1+2+3 = 6, 4+5+6 = 15
+print(rowSums(matrix1)) # satırların toplamını verir, 1+4 = 5, 2+5= 7, 3+6 = 9
+
+matrix1 <- matrix1[-c(1), -c(1)] # 1. SATIR VE 1. SÜTUNU SİLER
+# matrix1 <- matrix1[c(-1), c(-1)] # AYNISI: 1. SATIR VE 1. SÜTUNU SİLER
+# NOT: EĞER SATIR SÜTUNLAR SİLİNCE 1 SATIR VEYA SÜTUN KALIRSA MATRİKS OLMAKTAN ÇIKIP VEKTÖR OLUYOR
+matrix1 <- matrix1[-c(1), -c(1), drop = FALSE] # 1. SATIR VE 1. SÜTUNU SİLER
+# NOT: drop = FALSE SAYESİNDE MATRİKS OLARAK KALMAYA DEVAM EDER.
+
+print(matrix1) # 5,6 döner
+
+print(5 %in% matrix1) # TRUE
+print(8 %in% matrix1) # FALSE
+
+matrix2 <- matrix(c(1:6), nrow = 2, ncol = 3)
+dim(matrix2) # 2, 3 döner
+nrow(matrix2) # 2 döner
+ncol(matrix2) # 3 döner
+length(matrix2) # 6 döner
+
+for (rowID in 1:nrow(matrix2)) {
+  for (colID in 1:ncol(matrix2)) {
+    print(matrix2[rowID, colID]) # bütün elemanlar dönecek
+  }  
+}
+
+matrix3 <- matrix(c("elma", "armut", "muz", "havuc", "karpuz", "kavun"), nrow = 2, ncol = 3)
+matrix4 <- matrix(c(1:6), nrow = 2, ncol = 3)
+combinedMatrix <- cbind(matrix3, matrix4) # YENİ SÜTUNLAR OLARAK EKLER. SATIR SAYILARI AYNI OLMALI
+combinedMatrix2 <- rbind(matrix3, matrix4) # YENİ SATIRLAR OLARAK EKLER. SÜTUN SAYILARI AYNI OLMALI
+# AYRICA AYNI MATRİXE SOKULMAYA ÇALIŞILAN MATRİXLER AYNI TİP VERİ İÇERMEDİĞİ İÇİN
+# HEPSİ CHARACTERE DÖNÜŞTÜRÜLÜYOR.
+print(combinedMatrix)
+print(combinedMatrix2)
+
+#####################################################################
+
+# arrays
+# matrixlerin 3 veya daha fazla boyutlu halleridir
+# aynı tip veriler omak zorunda
+
+array1 <- array(c(1:24), dim = c(4,3,2)) # 2 ADET 4X3LÜK MATRİX
+print(array1[3, 2, 1]) # SATIR, SÜTUN, BOYUT, 7 döner
+print(array1[3,,]) # 1. SATIRDAKİ VERİLERİ DÖNER
+print(array1[, 2, ]) # 2. SÜTUNDAKİ VERİLERİ DÖNER
+print(array1[, , 2]) # 2. BOYUTTAKİ VERİLERİ DÖNER
+print(array1[, , c(1,2)]) # 2. BOYUTTAKİ VERİLERİ DÖNER
+
+print(23 %in% array1) # TRUE
+print(29 %in% array1) # FALSE
+
+print(dim(array1)) # 4, 3, 2 döner
+print(length(array1)) # 24 döner
+
+for (x in array1) {
+  print(x) # 1'den 24'e yazar
+}
+
+#####################################################################
+
+# data frames
+# farklı veri tipleri içerebilen 2 boyutlu tablo
+
+dataFrame1 <- data.frame(
+  names = c("ahmet", "mehmet", "veli"),
+  ages = c(13, 43, 27),
+  meanHR = c(70, 93, 66)
+)
+
+summary(dataFrame1) # dataFrame1 'i istatistiksel özetler
+print(dataFrame1["names"]) # DATA FRAME TÜRÜNDE DÖNER
+print(dataFrame1[["names"]]) # VERİNİN TİPİ İLE DÖNDÜRÜR, ÖRN: CHARACTER
+print(dataFrame1[1]) # DATA FRAME TÜRÜNDE DÖNER
+print(dataFrame1$names) # VERİNİN TİPİ İLE DÖNDÜRÜR, ÖRN: CHARACTER
+
+print(dim(dataFrame1)) # 3, 3 DÖNER
+print(nrow(dataFrame1)) # 3 DÖNER
+print(ncol(dataFrame1)) # 3 DÖNER
+print(length(dataFrame1)) # 9 DEĞİL: SÜTUN SAYISINI DÖNDÜRÜR = 3
+ 
+newDataFrame1 <- rbind(dataFrame1, c("ayse", 67, 86))
+print(newDataFrame1) # ayse kişisi ekleniyor
+newDataFrame1 <- cbind(newDataFrame1, risk = c(50, 35, 45, 65))
+print(newDataFrame1) # risk sütunu ekleniyor
+
+newDataFrame2 <- newDataFrame1[-1, -1]; # İSİM SÜTUNUNU VE AHMET SATIRINI SİLER
+print(newDataFrame2)
+# DİKKAT: EĞER 1 SATIR VEYA 1 SÜTUN KALIRSA DİZİ ÖZELLİĞİNİ YİTİRMEZ, yine de drop = FALSE yapılabilir
+
+dataFrame2 <- data.frame(
+  names = c("ahmet", "mehmet", "veli"),
+  ages = c(13, 43, 27)
+)
+
+dataFrame3 <- data.frame(
+  steps = c(3000, 4000, 5000),
+  pulse = c(130, 150, 110)
+)
+
+dataFrame4 <- data.frame(
+  names = c("ayse", "emine", "elif"),
+  ages = c(11, 53, 32)
+)
+
+combinedDataFrame <- cbind(dataFrame2, dataFrame3) # SÜTUNLARI EKLER, 4 SÜTUN OLUR
+print(combinedDataFrame)
+
+combinedDataFrame2 <- rbind(dataFrame2, dataFrame4) # SATIRLARI EKLER, 6 SATIR OLUR
+print(combinedDataFrame2)
+
+#####################################################################
+
+# factors
+
+genre1 <- factor(c("Klasik", "Rock", "Jazz", "Pop"))
+print(genre1)
+print(genre1[3])
+print(levels(genre1))
+print(length(genre1))
+
+genre1[3] <- "Hiphop" # BU ÇALIŞMIYOR ÇÜNKÜ OLUŞTURULAN LEVELLARDA HİPHOP YOK
+genre1[3] <- "Pop" # BU ÇALIŞIR ÇÜNKÜ OLUŞTURULAN LEVELARDA POP VAR
+print(genre1[3])
+
+genre2 <- factor(c("Klasik", "Rock", "Jazz", "Pop"), levels = c("Klasik", "Rock", "Hiphop", "Digerleri"))
+print(levels(genre2))
+
+genre2[3] <- "Hiphop" # BU ÇALIŞIR ÇÜNKÜ OLUŞTURULAN LEVELLARDA HİPHOP VAR
+print(genre2[3])
+
+# ORDER MANTIĞI
+dozaj <- c("orta", "dusuk", "yuksek", "dusu")
+dozaj_faktor <- factor(dozaj, ordered = TRUE, levels = c("dusuk", "orta", "yuksek"))
+
+print(dozaj_faktor) 
+print(dozaj_faktor[1] > dozaj_faktor[2]) # "orta > düşük" mü? Çıktı: TRUE
+
+#####################################################################
