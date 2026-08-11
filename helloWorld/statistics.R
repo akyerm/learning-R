@@ -31,5 +31,6 @@ names(sort(-table(Data_Cars$wt)))[1] # w3schools önerisi
 var(mtcars$wt) # varyansı verir, değerlerin ortalamadan ne kadar saptığının karesi
 sd(mtcars$wt) # standart sapmayı verir, varyansın karekökü
 quantile(mtcars$wt) # quartilleri verir
-quantile(mtcars$wt, c(0.75)) # %75. - 3. quartil = 3.610 lbs
+quantile(mtcars$wt, c(0.50)) # %50. - 2. quartil = MEDYAN = 3.325 lbs
 quantile(mtcars$wt, c(0.25, 0.75)) # %25. - 1. quartil = 2.58125 ve %75. - 3. quartil = 3.610 lbs
+IQR(mtcars$wt) # quartiller arası açıklık = 3. quartil - 1. quartildir, UÇ DEĞERLERDEN ETKİLENMEZ
