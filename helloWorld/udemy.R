@@ -200,3 +200,91 @@ months(timeVec1) # aylara döker
 as.Date("1 September 2020", format = "%d %B %Y") 
 Sys.setlocale("LC_TIME", "Turkish")
 as.Date("1 Eylül 2020", format = "%d %B %Y") 
+
+
+# İstatistiksel İşlemler
+vec1 <- c(12, 32, 54, 87)
+sum(vec1) # 185
+mean(vec1)# 46.25
+length(vec1) # n = 4
+serbestlikDerecesi <- length(vec1) - 1 # serbestlik derecesi = degree of freedom = n - 1
+sd <- sd(vec1) # standart sapma = 32.12865
+varyans <- var(vec1) # varyans = standart sapmanın karesi = sd^2 = 1032.25
+medyan <- median(vec1) # medyan
+aciklik <- max(vec1) - min(vec1) # açıklık, range
+ceyreklikler <- quantile(vec1, probs = c(0.25, 0.5, 0.75))
+ceyreklikler2 <- quantile(vec1, probs = c(0.20, 0.60, 0.80))
+
+install.packages("e1071")
+library(e1071)
+skewness(vec1) # ÇARPIKLIK KATSAYISI = 0.188923 | -1 VE 1E YAKIN OLURSA ÇARPIKLIK FAZLA
+
+unique(vec1) # tekrar eden değerlerin çıkarılmış hali
+table(vec1) # frekans tablosu
+
+sum(c(1, 3, 5, 7, NA, NA), na.rm = TRUE) # NA ları çıkarır
+mean(c(1, 3, 5, 7, NA, NA), na.rm = TRUE) # NA ları çıkarır
+sd(c(1, 3, 5, 7, NA, NA), na.rm = TRUE) # NA ları çıkarır
+median(c(1, 3, 5, 7, NA, NA), na.rm = TRUE) # NA ları çıkarır
+is.na(c(1, 3, 5, 7, NA, NA)) # NA  olanları dönüyor
+which(is.na(c(1, 3, 5, 7, NA, NA)))
+any(is.na(c(1, 3, 5, 7, NA, NA)))
+
+
+
+
+## DATA FRAMES
+df1 <- data.frame(
+  "A" = c(1, 34, 65, 87),
+  "B" = c(32, 6, 43, 19),
+  "C" = c(18, 64, 98, 12)
+  )
+
+length(df1) # 3 = sütun veriyor
+length(df1$A) # 4 = A sütunundaki satır sayısını veriyor
+nrow(df1) # 4 = satır sayısı
+ncol(df1) # 3 = sütun sayısı
+dim(df1) # 4 3 = [1] satır [2] sütun sayısı
+dim(df1)[1] # 4 = satır sayısı
+
+
+df2 <- data.frame(
+  "A" = rnorm(100, mean = 5, sd = 3),
+  "B" = rnorm(100, mean = 54, sd = 1),
+  "C" = rnorm(100, mean = 75, sd = 17)
+)
+
+# not: which() NA olanları eliyor
+which(df2$A < 9) # A sütununda değeri 9dan küçük olanların indexlerini dönüyor
+df2[which(df2$A < 9),] # A sütununda değeri 9dan küçük olanların değerleri
+df2[which(df2$A < 9), c("B", "C")] # A sütununda değeri 9dan küçük olanların B ve C değerleri
+
+df3 <- CO2
+names(df3)
+subset(df3, subset = uptake < 30 & Type == "Quebec") # uptake 30dan küçük ve Quebecte olan veriler
+subset(df3, subset = uptake < 30 & Type == "Quebec", select = c(Treatment, conc)) # uptake 30dan küçük ve Quebecte olan verilerde treatment ve conc verileri
+
+rowMeans(iris[1:4]) # satırların ortalamasını alıyor
+iris["Ortalama"] <- rowMeans(iris[1:4]) # dfye ortalama sütunu ekliyoruz
+View(iris)
+colMeans(iris["Sepal.Length"], na.rm = T) # sütunun ortalamasını alıyor
+
+setosa <- iris[which(iris$Species == "setosa"), ]
+versicolor <- iris[which(iris$Species == "versicolor"), ]
+virginica <- iris[which(iris$Species == "virginica"), ]
+
+mean(setosa$Sepal.Length)
+
+# yukarıdaki işlemleri tek fonksiyonla yapabiliyoruz
+aggregate(iris[1:4], by = list(iris$Species), FUN = mean, na.rm = T)
+aggregate(iris[1:4], by = list(iris$Species), FUN = sum, na.rm = T)
+aggregate(iris[1:4], by = list(iris$Species), FUN = sd, na.rm = T)
+
+
+# CSV aktarma
+getwd() # çalışma klasörünü verir
+setwd() # çalışma klasörünü ayarlar
+list.files() # klasördeki dosyaları verir
+
+singapore <- read.csv("data/CSV__singapore.csv", header = TRUE, sep = ",", dec = ".")
+View(singapore)
