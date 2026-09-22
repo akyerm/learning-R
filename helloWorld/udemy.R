@@ -281,10 +281,47 @@ aggregate(iris[1:4], by = list(iris$Species), FUN = sum, na.rm = T)
 aggregate(iris[1:4], by = list(iris$Species), FUN = sd, na.rm = T)
 
 
-# CSV aktarma
+# CSV / veri seti aktarma
 getwd() # çalışma klasörünü verir
 setwd() # çalışma klasörünü ayarlar
 list.files() # klasördeki dosyaları verir
 
 singapore <- read.csv("data/CSV__singapore.csv", header = TRUE, sep = ",", dec = ".")
 View(singapore)
+
+Transactions
+Demo
+merged1 <- merge(Transactions, Demografik, by.x = "CUSTOMER_ID", by.y = "ID")
+
+names(Transactions)[2] <- "ID"
+merged2 <- merge(Transactions, Demografik, by = "ID")
+
+
+# DF İstatistiki Özet
+summary(iris)
+View(summary(iris))
+str(iris) # değişken türlerini gösteriyor
+head(iris) # ilk 6 veriyi gösteriyor = iris[1:6,]
+head(iris, n = 10) # ilk 10 veriyi gösteriyor = iris[1:6,]
+tail(iris) # son 6 veriyi gösteriyor iris[-1:-(nrow(iris)[1] - 6), ]
+tail(iris, n = 10) # son 10 veriyi gösteriyor = iris[-1:-(nrow(iris)[1] - 10), ]
+
+# DF Değişken Değiştirme
+df <- read.csv("data/CSV__singapore.csv")
+mean(df$price) # NA
+which(is.na(df$price)) # 5
+any(is.na(df$price)) # TRUE
+mean(df$price, na.rm = TRUE) # 169.3425
+sd(df$price, na.rm = TRUE) # 340.2081
+median(df$price, na.rm = TRUE) # 124
+
+# median < mean == sola çarpık
+hist(df$price[df$price < 1000]) # sola çarpık
+
+var(df$price, na.rm = TRUE) # 115741.5
+min(df$price, na.rm = TRUE) # 0
+max(df$price, na.rm = TRUE) # 10000
+quantile(df$price, na.rm = TRUE)
+
+table(df$room_type) # verilerin frekansı
+View(table(df$room_type))
