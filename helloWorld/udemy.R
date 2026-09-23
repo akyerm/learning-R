@@ -306,7 +306,6 @@ head(iris, n = 10) # ilk 10 veriyi gösteriyor = iris[1:6,]
 tail(iris) # son 6 veriyi gösteriyor iris[-1:-(nrow(iris)[1] - 6), ]
 tail(iris, n = 10) # son 10 veriyi gösteriyor = iris[-1:-(nrow(iris)[1] - 10), ]
 
-# DF Değişken Değiştirme
 df <- read.csv("data/CSV__singapore.csv")
 mean(df$price) # NA
 which(is.na(df$price)) # 5
@@ -325,3 +324,40 @@ quantile(df$price, na.rm = TRUE)
 
 table(df$room_type) # verilerin frekansı
 View(table(df$room_type))
+
+
+# DF Değişken Değiştirme
+# Not: classı dataframeler değiştirme hatalı oluyor
+class(df$price) # integer
+df$price <- as.numeric(df$price) 
+class(df$price) # numeric
+
+class(df$name) # character
+df$name <- as.factor(df$name) # factor
+class(df$name) # factor
+
+# apply
+?apply
+apply(df["price"], FUN = mean)
+apply(df[10:11], MARGIN = 1, FUN = mean) # price + minimum nights / 2
+lapply(df, FUN = mean) # bütün hepsinin ortalamasını alıyor
+# NOT: lapply listelerde apply dataframelerde
+
+# attach ve with
+?attach
+?with
+
+
+# NOT: attach edilen sayı kadar detach etmek lazım
+attach(df) # dfdeki sütunları dışarıya çıkarıyor
+host_name
+host_id
+
+detach(df)
+host_id # bulunamıyor
+
+with(df, mean(price))
+with(df, {
+  x <- price
+  mean(x)
+})
