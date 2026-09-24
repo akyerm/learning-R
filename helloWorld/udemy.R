@@ -361,3 +361,52 @@ with(df, {
   x <- price
   mean(x)
 })
+
+# Örnek
+df <- read.csv("data/WomenFootballResults.csv")
+names(df)
+df1 <- df[which(df$date > as.Date("1980/12/1") & df$date < as.Date("2019/12/31")), ]
+df1 <- df1[-6:-9]
+df1 <- df1[which(df1$home_team == "Hong Kong" & df1$away_team == "Philippines"), ]
+class(df1)
+
+# Çözüm
+## Veri Dosyasının okunması 
+df <- read.csv('WomenFootballResults.csv' , header = T , sep = ",")
+View(df)
+
+## Belirli bir tarih aralığının bulunması için değiş değişkeni R'ın 
+## içerisinde tanımlı tarih formatına çevrilmeli
+class(df$date)
+df$date <- as.Date(df$date , format = "%Y-%m-%d")
+
+## Subset fonksiyonu ile belirlenen koşulların oluşturulması
+## Lütfen subset deki parantezlere dikkat ediniz. 
+sonuc <- subset(df , 
+                select = c("date", "home_score" , "away_score" , "home_team" , "away_team") , 
+                subset = (date > as.Date("1980-12-01") & date < as.Date("2019-12-31")) &
+                  (home_team == "Hong Kong" & away_team == "Philippines"))
+View(sonuc)
+
+
+
+# Fonksiyonel Programlama
+x <- "a"
+y <- "b"
+print(x)
+print(x);print(y)
+z <- cat("x =", x, "\ny =", y) 
+class(z) # null
+
+t <- paste("x =", x, "\ny =", y) # \n çalışmaz
+class(t) # character
+
+paste0("x =", x, "\ny =", y) # her şeyi dip dibe yazıyor
+
+for(i in 1:10) {
+  print(i)
+} # 1 ve 10 dahil
+
+for(i in 1:nrow(iris)) {
+  print(iris$Species[i])
+}
