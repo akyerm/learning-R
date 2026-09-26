@@ -410,3 +410,113 @@ for(i in 1:10) {
 for(i in 1:nrow(iris)) {
   print(iris$Species[i])
 }
+
+toplama <- function(x, y) {
+  result = x + y
+  return(result)
+}
+
+toplama(1, 3) # 4
+
+toplama2 <- function() {
+  x = readline(prompt = "1. sayı:")
+  y = readline(prompt = "2. sayı:")
+  return(as.numeric(x) + as.numeric(y))
+} 
+
+ortHesapla <- function() {
+  x = readline(prompt = "1. sayı:")
+  y = readline(prompt = "2. sayı:")
+  z = readline(prompt = "3. sayı:")
+  values = as.numeric(c(x, y, z))
+  if(anyNA(values)) {
+    print("Hata: Sayı olmayan veri girdiniz.")
+  } else {
+    cat(x, y, z, "sayılarının ortalaması:", mean(values))
+  }
+}
+
+vecx <- c()
+
+ss <- function(x, population = TRUE) {
+  uz = length(x)
+  ort = sum(x) / uz
+  fark = c()
+  
+  for(i in 1:uz) {
+    fark[i] = (x[i] - ort) ** 2
+  }
+  
+  if(population) {
+    standart_ort = sum(fark) / uz
+  } else {
+    standart_ort = sum(fark) / (uz - 1)
+  }
+
+  return(sqrt(standart_ort))
+}
+ss(c(1, 3, 5, 6, 2, 4, 7, 11, 23, 42, 1, 3, 5, 23, 123, 754, 34, 4), TRUE) # 171.0374
+ss(c(1, 3, 5, 6, 2, 4, 7, 11, 23, 42, 1, 3, 5, 23, 123, 754, 34, 4), FALSE) # 175.996
+sd(c(1, 3, 5, 6, 2, 4, 7, 11, 23, 42, 1, 3, 5, 23, 123, 754, 34, 4)) # 175.996
+# R içindeki standart sapma n-1 ile hesaplıyor
+
+x <- 4
+y <- 5
+
+f1 <- function() {
+  x <- 23
+  y <<- 53
+  return(x + y)
+}
+
+f1() # 76
+x # 4
+y # 53
+
+
+# Ödev
+f2 <- function(vec) {
+  vec1 <- (sqrt(abs(vec))) * 10
+  return(sum(vec1))
+}
+
+vec <- sample(-10:10, 5)
+f2(vec)
+
+f3 <- function(liste) {
+  sonuc <- list()
+  
+  for(i in 1:length(liste)) {
+    print(i)
+    for(a in 1:length(liste[i])) {
+      print(a)
+      if(a > 5) {
+        sonuc <- append(sonuc[i], "BÜYÜKTÜR")
+      } else {
+        sonuc <- append(sonuc[i], "KÜÇÜKTÜR")
+      }
+    }
+  }
+}
+
+
+vec1 <- sample(-10:10, 5)
+vec2 <- sample(-10:10, 5)
+liste <- list(vec1, vec2)
+sonuc <- list()
+
+for(i in 1:length(liste)) {
+  cat("i nin değeri:", i, "\n")
+  for(a in 1:length(liste[[i]])) {
+    cat("A nin değeri:", a, "\n")
+    sonucVec <- c()
+    if(a > 5) {
+      sonucVec[a] <- "BÜYÜKTÜR"
+    } else {
+      sonucVec[a] <- "KÜÇÜKTÜR"
+    }
+    sonuc <- append(sonuc[i], sonucVec)
+  }
+}
+
+
