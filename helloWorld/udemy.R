@@ -487,36 +487,105 @@ f3 <- function(liste) {
   sonuc <- list()
   
   for(i in 1:length(liste)) {
-    print(i)
-    for(a in 1:length(liste[i])) {
-      print(a)
-      if(a > 5) {
-        sonuc <- append(sonuc[i], "BÜYÜKTÜR")
+    sonucVec <- c()
+    
+    for(a in 1:length(liste[[i]])) {
+      if(liste[[i]][a] > 5) {
+        sonucVec[a] <- "BÜYÜKTÜR"
       } else {
-        sonuc <- append(sonuc[i], "KÜÇÜKTÜR")
+        sonucVec[a] <- "KÜÇÜKTÜR"
       }
     }
+    sonuc[[i]] <- sonucVec
   }
+  
+  return(sonuc)
 }
 
 
 vec1 <- sample(-10:10, 5)
 vec2 <- sample(-10:10, 5)
-liste <- list(vec1, vec2)
-sonuc <- list()
+vec3 <- sample(-10:10, 5)
 
-for(i in 1:length(liste)) {
-  cat("i nin değeri:", i, "\n")
-  for(a in 1:length(liste[[i]])) {
-    cat("A nin değeri:", a, "\n")
-    sonucVec <- c()
-    if(a > 5) {
-      sonucVec[a] <- "BÜYÜKTÜR"
-    } else {
-      sonucVec[a] <- "KÜÇÜKTÜR"
-    }
-    sonuc <- append(sonuc[i], sonucVec)
-  }
+f3(list(vec1, vec2, vec3))
+
+
+
+# Tidyverse Dplyr
+
+install.packages("tidyverse")
+library(tidyverse)
+data <- iris
+
+data %>% select(Sepal.Length, Sepal.Width)
+
+data %>% slice(3, 2) # 3. ve 2. elemanı seçti
+data %>% slice(c(1, 5, 7, 9, 13)) # vektördeki elemanları seçti
+data %>% slice(1:15) # 1den 15. elemana kadar olanları seçti
+data %>% select(Sepal.Length, Sepal.Width) %>% slice(1:5)  # ilk 5 elemanın belirli verilerini aldık
+
+data %>% slice_min(order_by = Sepal.Length, n = 10) # en küçük Sepal.Length değerine sahip 10 veriyi gösteriyor
+data %>% slice_max(order_by = Sepal.Length, n = 10) # en küçük Sepal.Length değerine sahip 10 veriyi gösteriyor
+data %>% slice_max(order_by = Species, n = 10) # karakter verisinde alfabetik olarak sıralıyor | max = alfabede daha ileride
+
+data %>% slice_sample(n = 10) # rastgele 10 veri
+
+data %>% distinct(Species) # unique() ile aynı
+
+data %>% arrange(Sepal.Width) # Sepal.Widthe göre sıralıyor, K -> B
+data %>% arrange(desc(Sepal.Width)) # Sepal.Widthe göre sıralıyor, B -> K
+data %>% arrange(Sepal.Width, Sepal.Length) # önce Sepal.Widthe sonra Lengthe göre sıralıyor, K -> B
+data %>% arrange(desc(Sepal.Width), desc(Sepal.Length)) # önce Sepal.Widthe sonra Lengthe göre sıralıyor, B -> K
+data %>% arrange(Sepal.Width, desc(Sepal.Length)) # önce Sepal.Widthe sonra Lengthe göre sıralıyor, Width K -> B Length B -> K
+
+data %>% summarise(
+  Ortalama_SL = mean(Sepal.Length),
+  Medyan_SL = median(Sepal.Length),
+  StandartSapma_SL = sd(Sepal.Length)
+)
+
+data2 <- c(rep("A", 50), rep("B", 50), rep("C", 50))
+data$extra <- data2
+data %>% group_by(Species, extra) # Groups:   Species, extra [3]
+data2 <- c(rep("A", 30), rep("B", 30), rep("C", 30), rep("D", 30), rep("E", 30))
+data$extra <- data2
+data %>% group_by(Species, extra) # Groups:   Species, extra [7]
+
+aciklik <- function(vec){
+  return(max(vec) - min(vec))
 }
 
+data %>% group_by(Species, extra) %>% summarise(
+  Ortalama_SL = mean(Sepal.Length),
+  Ortalama_SW = mean(Sepal.Width),
+  Aciklik_SL = aciklik(Sepal.Length),
+  Aciklik_SW = aciklik(Sepal.Width),
+)
 
+data %>% filter(Sepal.Length < 5)
+data %>% filter(Sepal.Length < 5 , Sepal.Width > 3) # VE = & İLE AYNI
+data %>% filter(Sepal.Length < 5 & Sepal.Width > 3) # VE = , İLE AYNI
+data %>% filter(Sepal.Length < 5 | Sepal.Width > 3) # VEYA = | 
+
+data %>%
+  filter(Sepal.Length < 5 & Sepal.Width > 3) %>%
+  select(Sepal.Length, Sepal.Width, extra)
+
+data %>%
+  filter(Sepal.Length < 5 & Sepal.Width > 3) %>%
+  select(Sepal.Length, Sepal.Width, extra) %>%
+  group_by(extra) %>%
+  summarise(
+    Ortalama_SL = mean(Sepal.Length),
+    Ortalama_SW = mean(Sepal.Width),
+    Aciklik_SL = aciklik(Sepal.Length),
+    Aciklik_SW = aciklik(Sepal.Width),
+  )       
+
+data %>% mutate(Sepal.Length = log(Sepal.Length)) # Logaritmasını alır
+data %>% mutate(Sepal.LengthLog = log(Sepal.Length)) # Logaritmasını alır ve yeni bir değişkene atar
+data %>% mutate(Species = as.character(Species)) # Değişkenin türünü değiştirir factor -> character
+data %>% mutate_if(is_numeric, log) # eğer değer numeric ise bütün değerlerin logaritmasını alır
+data %>% mutate_if(is_numeric, function(x) {
+  x * 10 
+}) # eğer değer numeric ise bütün değerleri 10 ile çarpar
