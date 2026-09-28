@@ -589,3 +589,14 @@ data %>% mutate_if(is_numeric, log) # eğer değer numeric ise bütün değerler
 data %>% mutate_if(is_numeric, function(x) {
   x * 10 
 }) # eğer değer numeric ise bütün değerleri 10 ile çarpar
+
+# Ödev
+library("tidyverse")
+data <- read.csv("data/FRvideos.csv")
+data %>% filter(views > 3000000) %>% 
+  group_by(channel_title, category_id) %>% 
+  summarise(
+    OrtDislike = mean(dislikes),
+    OrtLike = mean(likes),
+    OrtViews = mean(views)
+  )
