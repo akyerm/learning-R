@@ -600,3 +600,40 @@ data %>% filter(views > 3000000) %>%
     OrtLike = mean(likes),
     OrtViews = mean(views)
   )
+
+# Grafikler
+data <- iris
+hist(data$Sepal.Length)
+hist(
+  data$Sepal.Length,
+  main = "Grafik",
+  xlab = "Uzunluk",
+  ylab = "Frekans",
+  breaks = 20, # değerler arttıkça daha detaylı gözlem yapılabilir
+  xlim = c(min(data$Sepal.Length), max(data$Sepal.Length)),
+  ylim = c(0, max(table(data$Sepal.Length))),
+  col = c("orange", "purple"),
+)
+ 
+hist(
+  data$Sepal.Length,
+  main = "Grafik",
+  xlab = "Uzunluk",
+  ylab = "Frekans",
+  prob = T,
+  col = c("orange", "purple"),
+)
+
+lines(
+  density(data$Sepal.Length, adjust = 2), 
+  col = "red",
+  lwd = 2, # kalınlık
+  lty = "dotted" # şekil
+)
+
+lines(
+  density(data$Sepal.Length, adjust = 4), 
+  col = "black",
+  lwd = 3, # kalınlık
+)
+
