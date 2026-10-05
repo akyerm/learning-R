@@ -602,6 +602,8 @@ data %>% filter(views > 3000000) %>%
   )
 
 # Grafikler
+
+# histogram
 data <- iris
 hist(data$Sepal.Length)
 hist(
@@ -637,3 +639,137 @@ lines(
   lwd = 3, # kalınlık
 )
 
+# scatter plot - saçılım
+View(airquality)
+plot(airquality$Ozone)
+plot(airquality$Ozone, bty = "L") # L şeklinde
+plot(airquality$Ozone, pch = "•") # noktaların şeklini değiştiriyoruz
+plot(airquality$Ozone, pch = 19) # noktaların şeklini değiştiriyoruz
+plot(airquality$Ozone, type = "h") # grafiğin tipini değiştiriyoruz
+plot(airquality$Ozone, type = "l") # grafiğin tipini değiştiriyoruz
+plot(airquality$Ozone, type = "b") # grafiğin tipini değiştiriyoruz
+plot(airquality$Ozone, type = "c") # grafiğin tipini değiştiriyoruz
+plot(airquality$Ozone, type = "o") # grafiğin tipini değiştiriyoru
+plot(airquality$Ozone, type = "s") # grafiğin tipini değiştiriyoruz
+plot(x = airquality$Ozone, y = airquality$Temp, pch = 19, type = "p")
+plot(
+  x = airquality$Ozone, y = airquality$Temp, 
+  pch = 19, 
+  type = "p",
+  main = "Saçılım Grafiği ve Renkler",
+  xlab = "Ozon Değerleri",
+  ylab = "Sıcaklık Değerleri",
+  col = c("orange", "blue", "red", "green", "pink")[as.factor(airquality$Month)]
+) # Montha göre renk atıyoruz
+
+legend(
+  x = "bottomright",
+  legend = levels(as.factor(airquality$Month)),
+  col = c("orange", "blue", "red", "green", "pink"),
+  pch = 19
+)
+
+class(airquality$Month)
+as.factor(airquality$Month)
+levels(as.factor(airquality$Month))
+
+par(mar = c(5, 5, 7, 2), xpd = T) # alt, sol, üst, sağ marginleri ayarlar
+plot(
+  x = airquality$Ozone, y = airquality$Temp, 
+  pch = 19, 
+  type = "p",
+  main = "Saçılım Grafiği ve Renkler",
+  xlab = "Ozon Değerleri",
+  ylab = "Sıcaklık Değerleri",
+  col = c("orange", "blue", "red", "green", "pink")[as.factor(airquality$Month)]
+) # Montha göre renk atıyoruz
+
+legend(
+  x = "bottomright",
+  legend = levels(as.factor(airquality$Month)),
+  col = c("orange", "blue", "red", "green", "pink"),
+  pch = 19,
+  inset = c(-0.2, 0.1) # inset ile x ve y konumları ayarlanabiliyor
+)
+
+
+par(mar = c(5, 5, 10, 3), xpd = T) # alt, sol, üst, sağ marginleri ayarlar
+plot(
+  x = airquality$Ozone, y = airquality$Temp, 
+  pch = 19, 
+  type = "p",
+  main = "Ozon ve Sıcaklık İlişkisi",
+  xlab = "Ozon Değerleri",
+  ylab = "Sıcaklık Değerleri",
+  col = c("orange", "blue", "red", "green", "pink")[as.factor(airquality$Month)],
+  cex = airquality$Wind / 10
+) # Montha göre renk atıyoruz
+
+legend(
+  x = "bottomright",
+  title = "Aylar",
+  legend = levels(as.factor(airquality$Month)),
+  col = c("orange", "blue", "red", "green", "pink"),
+  pch = 19,
+  inset = c(-0.2, 0) # inset ile x ve y konumları ayarlanabiliyor
+)
+
+legend(
+  x = "topright",
+  title = "Rüzgar Seviyesi",
+  legend = c("Düşük", "Orta", "Yüksek"),
+  cex = 0.8,
+  pt.cex = c(0.17, 0.99, 2.07),
+  pch = 19,
+  inset = c(-0.2, 0) # inset ile x ve y konumları ayarlanabiliyor
+)
+
+# Lineer Doğru, Lowess Doğrusu
+any(is.na(airquality$Ozone)) # true
+airquality <- na.omit(airquality)
+
+par(mar = c(3, 3, 3, 10), xpd = F) # alt, sol, üst, sağ marginleri ayarlar
+plot(
+  x = airquality$Ozone, y = airquality$Temp, 
+  pch = 19, 
+  type = "p",
+  bty = "L",
+  main = "Ozon ve Sıcaklık İlişkisi",
+  xlab = "Ozon Değerleri",
+  ylab = "Sıcaklık Değerleri",
+  col = c("orange", "blue", "red", "green", "pink")[as.factor(airquality$Month)],
+  cex = airquality$Wind / 10
+) 
+
+abline(
+  lm(airquality$Temp ~ airquality$Ozone), # önce Y sonra X yazdık - önce bağımlı değişken
+  lwd = 2,
+  lty = "dotted"
+) 
+
+lowess(airquality$Ozone, airquality$Temp) # NA olursa hata verir
+lines(
+  lowess(airquality$Ozone, airquality$Temp),
+  lwd = 2,
+  col = "blue"
+)
+
+par(xpd = T) # önce false yapıp ardından true yaparak çizdirdiğimiz çizginin grafikten taşmasını engelliyoruz
+legend(
+  x = "bottomright",
+  title = "Aylar",
+  legend = levels(as.factor(airquality$Month)),
+  col = c("orange", "blue", "red", "green", "pink"),
+  pch = 19,
+  inset = c(-0.3, 0.1) # inset ile x ve y konumları ayarlanabiliyor
+)
+
+legend(
+  x = "topright",
+  title = "Rüzgar Seviyesi",
+  legend = c("Düşük", "Orta", "Yüksek"),
+  cex = 0.8,
+  pt.cex = c(0.17, 0.99, 2.07),
+  pch = 19,
+  inset = c(-0.35, 0.1) # inset ile x ve y konumları ayarlanabiliyor
+)
