@@ -773,3 +773,214 @@ legend(
   pch = 19,
   inset = c(-0.35, 0.1) # inset ile x ve y konumları ayarlanabiliyor
 )
+
+# Bar Grafiği
+View(mtcars)
+data <- mtcars
+table(mtcars$cyl) # frekans
+barplot(
+  table(mtcars$cyl),
+  names.arg = c("4 Silindir", "6 silindir", "8 silindir"),
+  col = "red",
+  border = "orange",
+  horiz = F, # T olursa yatay yapar
+  cex.axis = 0.8,
+  cex.names = 0.8,
+  axis.lty = 1 # çizgiyi değiştiriyor
+)
+
+summary(mtcars$mpg)
+ceyreklikler <- c(
+  length(mtcars$mpg[which(mtcars$mpg < 15.425)]),
+  length(mtcars$mpg[which(mtcars$mpg >= 15.425 & mtcars$mpg < 19.20)]),
+  length(mtcars$mpg[which(mtcars$mpg >= 19.20 & mtcars$mpg < 22.80)]),
+  length(mtcars$mpg[which(mtcars$mpg >= 22.80)])
+)
+
+
+barplot(
+  ceyreklikler,
+  names.arg = c("%0 - 25", "%25 - 50", "%50 - 75", "%75 - 100"),
+  col = "red",
+  border = "orange",
+  horiz = F, # T olursa yatay yapar
+  cex.axis = 0.8,
+  cex.names = 0.45,
+  axis.lty = 1 # çizgiyi değiştiriyor
+)
+
+# Stacked Bar
+table(mtcars$gear, mtcars$cyl) # X = vites, Y = silindir
+par(mar=c(5,5,5,10), xpd = T)
+barplot(
+  table(mtcars$gear, mtcars$cyl), # X ekseni sütunu, Y ekseni satırı gösterir
+  main = "Stacked Bar",
+  xlab = "Silindir Sayısı",
+  ylab = "Frekans",
+  col = c("black", "grey", "white"),
+  legend = c("3 Vitesli", "4 Vitesli", "5 Vitesli"),
+  args.legend = list(
+    bty = "o",
+    horiz = F,
+    xjust = -0.3,
+    yjust = 1
+  )
+)
+
+# Pasta Grafiği
+prop.table(table(mtcars$gear)) # frekanslar yüzdeliğe çeviriyor
+label <- sprintf(
+  "%s (%s%3.1f)",
+  c("3 Vites", "4 Vites", "5"),
+  "%",
+  as.numeric(prop.table(table(mtcars$gear))) * 100
+) # JSdeki template literal = ${x} gibi
+
+pie(
+  prop.table(table(mtcars$gear)),
+  main = "Vites Pasta Grafiği",
+  labels = label,
+  col = c("black", "gray", "white"),
+  init.angle = 180,
+  border = "black",
+  lty = 1,
+  radius = 1.2 # 0.8 default
+)
+
+# Kutu - Boxplot grafiği
+# ÜST KENAR ÜÇÜNCÜ ÇEYREKLİĞİ ALT KENAR BİRİNCİ ÇEYREKLİĞİ GÖSTERİR
+boxplot(
+  mtcars[, c("drat", "wt")],
+  main = "Box Plot Grafiği",
+  xlab = "Değişkenler",
+  ylab = "Değerler",
+  names = c("Drat Değeri", "WT Değeri"),
+  col = c("gray", "white"),
+  border = "black",
+  pch = 19,
+  cex.axis = 0.7,
+  range = 0.5,
+  outline = F
+)
+
+boxplot(
+  mtcars$mpg ~ mtcars$gear, # Vitese göre MPG değerleri (Vites bağımsız değişken, MPG bağımlı değişken)
+  main = "Box Plot Grafiği",
+  xlab = "Vites",
+  ylab = "MPG",
+  col = c("gray"),
+  border = "black",
+  pch = 19,
+  cex.axis = 0.7,
+  range = 0.5,
+  outline = F
+)
+boxplot(
+  mtcars$mpg ~ mtcars$gear, # Vitese göre MPG değerleri (Vites bağımsız değişken, MPG bağımlı değişken)
+  main = "Box Plot Grafiği",
+  xlab = "Vites",
+  ylab = "MPG",
+  col = c("gray"),
+  border = "black",
+  pch = 19,
+  cex.axis = 0.7,
+  range = 0.5,
+  outline = F
+)
+
+boxplot(
+  mtcars$mpg ~ mtcars$gear*mtcars$cyl, # Vites-Silindire göre MPG değerleri (Vites-Silindir bağımsız değişken, MPG bağımlı değişken)
+  main = "Box Plot Grafiği",
+  xlab = "Vites",
+  ylab = "MPG",
+  col = c("gray"),
+  border = "black",
+  pch = 19,
+  cex.axis = 0.7,
+  range = 0.5,
+  outline = F
+) # 3.4 = 3 Vites 4 Silindir anlamına gelir 
+
+
+# Heatmap Grafiği
+mtcars_M <- as.matrix(mtcars) # heatmap matrix alır
+heatmap(mtcars_M, scale = "column")
+heatmap(mtcars_M, scale = "column", Colv = NA, Rowv = NA)
+
+install.packages("RColorBrewer")
+library(RColorBrewer)
+
+heatmap(
+  mtcars_M, 
+  scale = "column", 
+  Colv = NA, 
+  Rowv = NA,
+  col = colorRampPalette(
+    brewer.pal(9, "Blues")
+  )(25)
+)
+
+legend(
+  "bottomright", 
+  legend = c("Min", "Ort", "Max"),
+  fill = colorRampPalette(
+    brewer.pal(3, "Blues")
+  )(25)
+)
+
+# Ödev
+
+data <- read.csv("data/top_women_chess_players_aug_2020.csv")
+data <- na.omit(data)
+data$Title[data$Title == ""] <- "-"
+par(mar = c(3, 12, 3, 3), xpd = F)
+plot(
+  x = data$Standard_Rating,
+  y = data$Rapid_rating,
+  xlab = "Standart Rating Değerleri",
+  ylab = "Rapid Rating Değerleri",
+  bty = "L",
+  cex = 0.3,
+  pch = 19,
+  col = c(
+    "black",
+    "green",
+    "pink",
+    "cyan",
+    "orange",
+    "white",
+    "red",
+    "blue",
+    "turquoise",
+    "magenta"
+  )[as.factor(data$Title)]
+)
+
+abline(
+  lm(data$Standard_Rating ~ data$Rapid_rating), # önce Y sonra X yazdık - önce bağımlı değişken
+  lwd = 2,
+) 
+
+par(xpd = T)
+
+legend(
+  "bottomleft",
+  legend = levels(as.factor(data$Title)),
+  cex = 0.7,
+  inset = c(-1.2, 0.3),
+  fill = c(
+                    "black",
+                    "green",
+                    "pink",
+                    "cyan",
+                    "orange",
+                    "white",
+                    "red",
+                    "blue",
+                    "turquoise",
+                    "magenta"
+                  )    
+)
+
+
+
