@@ -103,3 +103,54 @@ rbinom(1, size = 30, prob = 0.7) # bu 30 ameliyat yap??ld??????nda random olarak
 rbinom(5, size = 30, prob = 0.7) # her ay 30 ameliyat yap??lsa 5 ay boyunca random olarak 1. ay 22, 2. ay 20, 3. ay 20, 4. ay 21, 24 hasta iyile??ebilir
 hist(rbinom(5, size = 30, prob = 0.7))
 
+
+###########################################
+
+# Poisson Da????l??m??
+?dpois
+
+# Acil servise 1 saatte 15 tane hasta geliyor
+dpois(x = 20, lambda = 15) # 1 saatte 20 hasta gelme olas??l??????
+dpois(x = 5, lambda = 15) # 1 saatte 5 hasta gelme olas??l??????
+
+plot(1:30, dpois(x = 1:30, lambda = 15), bty = "L", pch = 19) # ??an e??risi ??eklinde
+lines(dpois(x = 1:30, lambda = 20)) # 20 hasta / 1 sa, sa??a kayar
+lines(dpois(x = 1:30, lambda = 10)) # 10 hasta / 1 sa, sola kayar
+
+dpois(x = 2, lambda = 1/4) # 4 dkda bir hasta geliyorsa 1 dkda 2 hasta gelme olas??l??????
+dpois(x = 1, lambda = 1/4) # 4 dkda bir hasta geliyorsa 1 dkda 1 hasta gelme olas??l??????
+
+# K??m??latif olas??l??k: 1 saatte max. X hasta gelme olas??l??????
+ppois(q = 12, lambda = 15, lower.tail = T) # bir saatte en fazla 12 hasta gelme olas??l??????
+ppois(q = 12, lambda = 15, lower.tail = F) # bir saatte en az 13 hasta gelme olas??l??????
+
+# %x lik dilimde 1 saatte n adet hasta gelme olas??l??????
+# Saatlerin %80'inde acil servise gelen hasta say??s?? en fazla ka?? olur?
+qpois(p = 0.80, lambda = 15, lower.tail = T) # saatte gelen hastalar??n say??s??n??n istatisti??ini tutsak saatlerin %80inde gelen hasta say??s?? en fazla 18 olur.
+qpois(p = 0.80, lambda = 15, lower.tail = F) # saatte gelen hastalar??n say??s??n??n istatisti??ini tutsak saatlerin %80inde gelen hasta say??s?? en az 13 olur.
+
+# 10 farkl?? saat i??in gelen hastalar??n sim??lasyonunu yap
+rpois(n = 10, lambda = 15) # 16 15 15 15 19 15 22 12 19 16 
+
+###########################################
+
+# Hipergeometrik Da????l??m
+
+?dhyper
+
+# Bir torba i??inde 20 adet top var: 8 tanesi beyaz, 12 tanesi siyah
+dhyper(x = 3, m = 8, n= 12, k = 5) # torbadan 5 adet top al??yoruz 3 adet beyaz gelme olas??l?????? %23.8
+plot(1:20, dhyper(1:20, m = 8, n = 12, k = 10), bty = "L", pch = 19)
+lines(dhyper(1: 20, m = 10, n = 10, k = 10)) # beyaz top say??s?? artt?????? i??in sa??a kayd??
+lines(dhyper(1: 20, m = 5, n = 15, k = 10)) # beyaz top say??s?? azald?????? i??in sola kayd??
+
+# K??m??latif olas??l??k
+phyper(q = 3, m = 8, n = 12, k = 5, lower.tail = T) # torbadan 5 adet top al??yoruz en fazla 3 adet beyaz gelme olas??l??????
+phyper(q = 3, m =  8, n = 12, k = 5, lower.tail = F) # torbadan 5 adet top al??yoruz en az 4 adet beyaz gelme olas??l??????
+
+# %x lik dilimde beyaz top gelme  olas??l??????
+qhyper(p = 0.9, m = 8, n = 12, k = 5, lower.tail = T) # bu torbadan al??nan 5 adet topu istatisti??e d??kseydik %90n??nda en fazla 2 adet beyaz top gelirdi
+qhyper(p = 0.1, m = 8, n = 12, k = 5, lower.tail = F) # bu torbadan al??nan 5 adet topu d??kseydik %10unda en az 3 adet beyaz top gelirdi
+
+# Bu torbadan 5 adet top ??ekme sim??lasyonundan gelecek beyaz top say??lar??
+rhyper(nn = 10, m = 8, n = 12, k = 5) # 1 2 3 1 2 2 1 1 0 2
