@@ -149,8 +149,8 @@ phyper(q = 3, m = 8, n = 12, k = 5, lower.tail = T) # torbadan 5 adet top al??yo
 phyper(q = 3, m =  8, n = 12, k = 5, lower.tail = F) # torbadan 5 adet top al??yoruz en az 4 adet beyaz gelme olas??l??????
 
 # %x lik dilimde beyaz top gelme  olas??l??????
-qhyper(p = 0.9, m = 8, n = 12, k = 5, lower.tail = T) # bu torbadan al??nan 5 adet topu istatisti??e d??kseydik %90n??nda en fazla 2 adet beyaz top gelirdi
-qhyper(p = 0.1, m = 8, n = 12, k = 5, lower.tail = F) # bu torbadan al??nan 5 adet topu d??kseydik %10unda en az 3 adet beyaz top gelirdi
+qhyper(p = 0.9, m = 8, n = 12, k = 5, lower.tail = T) # bu torbadan al??nan 5 adet topu istatisti??e d??kseydik %90n??nda en fazla 3 adet beyaz top gelirdi
+qhyper(p = 0.1, m = 8, n = 12, k = 5, lower.tail = F) # bu torbadan al??nan 5 adet topu d??kseydik %10unda en az 4 adet beyaz top gelirdi
 
 # Bu torbadan 5 adet top ??ekme sim??lasyonundan gelecek beyaz top say??lar??
 rhyper(nn = 10, m = 8, n = 12, k = 5) # 1 2 3 1 2 2 1 1 0 2
