@@ -1,37 +1,45 @@
-# ??statistik Notlar??
+# İstatistik Notları
 
-## da????l??mlar
+## dağılımlar
 
-- kesikli da????l??mlar
+- kesikli dağılımlar
 
-  - bernoulli da????l??m??
+  - bernoulli dağılımı
 
-  - binom da????l??m??
+  - binom dağılımı
 
-  - poission da????l??m??
+  - poission dağılımı
 
-  - hipergeometrik da????l??m
+  - hipergeometrik dağılım
 
-- s??rekli da????l??mlar
+- sürekli dağılımlar
 
-  - uniform da????l??m
+  - uniform dağılım
 
-  - ??stel da????l??m
+  - üstel dağılım
 
-  - normal da????l??m
+  - normal dağılım
 
-### bernoulli da????l??m??
+### bernoulli dağılımı
 
-tek denemede ger??ekle??en olaylar??n olas??l??????n??n hesaplanmas??, iki tane sonucu vard??r: yaz?? tura gibi, ameliyat ba??ar??l??/ba??ar??s??z olacak m??.
+tek denemede gerçekleşen olayların olasılığının hesaplanması, iki tane sonucu vardır: yazı tura gibi, ameliyat başarılı/başarısız olacak mı.
 
-### binom da????l??m??
+### binom dağılımı
 
-ba????ms??z olarak n kez tekrarlanan bernoulli denemesidir: 50 kere yaz?? tura atmak, 30 farkl?? hastaya yap??lan ameliyatlar ba??ar??l??/ba??ar??s??z olacak m?? gibi. deneyler s??resince denek veya deneme say??s?? de??i??memeli; denemeler ba????ms??z olmal?? ve her denemede iki olas?? sonu?? olmal??d??r.
+bağımsız olarak n kez tekrarlanan bernoulli denemesidir: 50 kere yazı tura atmak, 30 farklı hastaya yapılan ameliyatlar başarılı/başarısız olacak mı gibi. deneyler süresince denek veya deneme sayısı değişmemeli; denemeler bağımsız olmalı ve her denemede iki olası sonuç olmalıdır.
 
-### poisson da????l??m??
+### poisson dağılımı
 
-belirli bir zaman aral??????nda/alanda/hacimde nadir veya ba????ms??z ger??ekle??en olaylar??n ka?? kez meydana geldi??ini modelleyen kesikli da????l??md??r: bir acil servise 1 saatte ka?? hasta gelir gibi. olaylar ba????ms??z, ortalama olay oran?? sabit ve e??zamanl??l??k (iki olay ayn?? anda ger??ekle??emez) yoktur.
+belirli bir zaman aralığında/alanda/hacimde nadir veya bağımsız gerçekleşen olayların kaç kez meydana geldiğini modelleyen kesikli dağılımdır: bir acil servise 1 saatte kaç hasta gelir gibi. olaylar bağımsız, ortalama olay oranı sabit ve eşzamanlılık (iki olay aynı anda gerçekleşemez) yoktur.
 
-### hipergeometrik da????l??m
+### hipergeometrik dağılım
 
-sonlu bir pop??lasyondan iadesiz **(??ekilen ??ey tekrardan yerine koyulmuyor, her se??imde havuz k??????l??yor ve se??im olas??l??klar?? de??i??iyor)** se??im yap??ld??????nda belirli bir ba??ar?? say??s??n?? modelleyen kesikli olas??l??k da????l??m??d??r. **binom da????l??mda iadeli bir se??im m??mk??nken (veya pop??lasyon sonsuzsa) se??ilen geri koyuldu??u i??in her denemede ba??ar?? ??ans?? sabittir (ba????ms??z deneme).** ??rn: bir torbadan bulunan k??rm??z??-siyah-mavi toplar ??ekildik??e di??er toplar??n ??ekilme olas??l?????? da de??i??iyor.
+sonlu bir popülasyondan iadesiz **(çekilen şey tekrardan yerine koyulmuyor, her seçimde havuz küçülüyor ve seçim olasılıkları değişiyor)** seçim yapıldığında belirli bir başarı sayısını modelleyen kesikli olasılık dağılımıdır. **binom dağılımda iadeli bir seçim mümkünken (veya popülasyon sonsuzsa) seçilen geri koyulduğu için her denemede başarı şansı sabittir (bağımsız deneme).** örn: bir torbadan bulunan kırmızı-siyah-mavi toplar çekildikçe diğer topların çekilme olasılığı da değişiyor.
+
+### uniform (tekdüze) dağılım
+
+tüm olası sonuçlar tamamen eşit şansa sahiptir: zar attığında her bir sayının 1/6 olasılıkla gelmesi **(kesikli uniform),** 0 ile 10 aralığındaki sonsuz sayıdan herhangi birinin gelmesi **(sürekli uniform)** gibi.
+
+### exponential (üstel) dağılım
+
+bağımsız olayların meydana geldiği bir süreçte iki olay arasındaki bekleme süresi (veya mesafeyi) modelleyen sürekli olasılık dağılımıdır: acil servise gelen iki adet hastanın gelişi arasında geçen süre gibi. **poisson dağılımına benzer olup poisson dağılımı, belirli bir zaman aralığında gerçekleşen kaç adet olay olduğunu belirtirken (kesikli), üstel dağılımda bir sonraki olay için geçmesi gereken süre ölçülür (sürekli).**
