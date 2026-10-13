@@ -208,3 +208,73 @@ qexp(p = 0.1, rate = 1/4, lower.tail = F) # bekleme sürelerinin %10u 9.21 dkdan
 
 # Rastgele simülasyon: n adet hasta olsun aralarındaki bekleme sürelerini rastgele verir
 rexp(n = 3, rate = 1/4) # rastgele: 1. ve 2. hasta arasında 11dk; 2. ve 3. hasta arasında 0 dk; 3. ve 4. hasta arasında 4 dk bekleriz 
+
+###########################################
+
+# Normal Dağılım
+
+?dnorm
+
+# Nabız ortalaması 70 olsun. Standart sapma da ± 10 olsun.
+dnorm(x = 55, mean = 70, sd = 10) # nabzın 55 olma olasılığı %0.12
+plot(0:120, dnorm(x = 0:120, mean = 70, sd = 10)) # çan eğrisi
+lines(0:120, dnorm(x = 0:120, mean = 70, sd = 5)) # daha dik bir çan eğrisi
+lines(0:120, dnorm(x = 0:120, mean = 70, sd = 20)) # daha yayvan bir çan eğrisi
+
+# Kümülatif Olasılık
+pnorm(q = 60, mean = 70, sd = 10, lower.tail = T) # %15 olasılıkla 60'dan daha az veya eşit nabız
+pnorm(q = 80, mean = 70, sd = 10, lower.tail = F) # %15 olasılıkla 80'dan daha az veya eşit nabız
+
+# Boy verilerinin %p kadarı;
+# lower.tail = TRUE ise <çıktı> dan daha az veya eşit
+# lower.tail = FALSE ise <çıktı> dan daha büyük
+qnorm(p = 0.95, mean = 70, sd = 10, lower.tail = TRUE) # verilerin %95'i 86.45ten azdır
+qnorm(p = 0.95, mean = 70, sd = 10, lower.tail = FALSE) # verilerin %95'i 53.55ten azdır
+
+# Rastgele ortalaması mean, standart sapması sd olan n tane veri üretme
+veri <- rnorm(n = 10, mean = 60, sd = 15)
+hist(veri)
+
+###########################################
+
+# Standart Normal Dağılım
+# ortalama 0, standart sapma 1 olan normal dağılımdır
+plot(seq(-1, 1, by = 0.01), dnorm(x = seq(-1, 1, by = 0.01), mean = 0, sd = 1)) # standart normal dağılım grafiği
+rnorm(n = 10, mean = 0, sd = 1) # 10 adet standart normal dağılan veri seti üretir
+
+###########################################
+
+# Merkezi Limit Teoremi
+z <- c(10, 15, 14, 18, 10, 23, 23, 23, 56, 34, 13, 19, 19, 45, 45, 34)
+hist(z) # normal dağılmıyor, sağa çarpık
+
+# 50 kere rastgele 4 adet veri çekip ortalamalarını alıyoruz
+sonuc <- c()
+for(i in 1:50) {
+  ornek <- sample(z, size = 4)
+  sonuc[i] <- mean(ornek)
+}
+
+par(mfrow = c(1,2))
+hist(z) # sağa çarpık
+hist(sonuc) # normal dağılım gösteriyor
+
+###########################################
+
+# Ödev
+pbinom(q = 300, size = 500, prob = 0.6, lower.tail = F)
+
+
+# ort. 3000 kadından 500'ü ayakkabı 300'ü çanta alıyor
+# bir sonraki 700 ziyaretçinin 100'den fazla satın alınma olasılıklarını hem çanta hem de ayakkabı için bul
+# ayakkabı 500/3000 = 1/6, çanta = 300/3000 = 1/10
+pbinom(q = 100, size = 700, prob = 1/6, lower.tail = F) # %95.15
+pbinom(q = 100, size = 700, prob = 1/10, lower.tail = F) # %0.00132137
+
+# ayakkabı reklamlarına 30 dakikada 5 erkek; 20 dakikada 10 kadın müşteri tıklıyor
+# reklam yayınlandıktan 10 dk içerisinde erkek ve kadının tıklama olasılığı
+# erkek lambda = 1/6, kadın lambda = 1/2
+?pexp
+pexp(q = 10, rate = 1/6, lower.tail = T) # %81.11
+pexp(q = 10, rate = 1/2, lower.tail = T) # %99.32
+

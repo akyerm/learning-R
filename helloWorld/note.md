@@ -43,3 +43,15 @@ tüm olası sonuçlar tamamen eşit şansa sahiptir: zar attığında her bir sa
 ### exponential (üstel) dağılım
 
 bağımsız olayların meydana geldiği bir süreçte iki olay arasındaki bekleme süresi (veya mesafeyi) modelleyen sürekli olasılık dağılımıdır: acil servise gelen iki adet hastanın gelişi arasında geçen süre gibi. **poisson dağılımına benzer olup poisson dağılımı, belirli bir zaman aralığında gerçekleşen kaç adet olay olduğunu belirtirken (kesikli), üstel dağılımda bir sonraki olay için geçmesi gereken süre ölçülür (sürekli).**
+
+### normal dağılım
+
+verilerin ortalama değer etrafında simetrik olarak kümelendiği, uç değerlere gidildikçe olasılığın azaldığı **sürekli** bir dağılım olup çan eğrisi şeklindedir: insan boyu, kan basıncı, sınav notları gibi
+
+µ ± 1σ aralığında verilerin yaklaşık %68.27'si, µ ± 1σ aralığında %95,45'i ve µ ± 3σ aralığında %99,73'ü yer alır.
+
+ortalaması 0, standart sapması 1 olan normal dağılıma **standart normal dağılım** denir.
+
+> **Büyük sayılar kanununa göre veri sayısı arttıkça elde eden sonucun güvenirliği artar.**
+
+> **Merkezi limit teoremine göre popülasyon dağılımı ne olursa olsun yeterli sayıda örnek alındığında alınan örneklemin verileri normal dağılır. (en az 30 tane veri)**
