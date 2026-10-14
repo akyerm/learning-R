@@ -55,3 +55,17 @@ ortalaması 0, standart sapması 1 olan normal dağılıma **standart normal da�
 > **Büyük sayılar kanununa göre veri sayısı arttıkça elde eden sonucun güvenirliği artar.**
 
 > **Merkezi limit teoremine göre popülasyon dağılımı ne olursa olsun yeterli sayıda örnek alındığında alınan örneklemin verileri normal dağılır. (en az 30 tane veri)**
+
+------------------------------------------------------------------------
+
+## istatistiğe giriş
+
+popülasyon/evren hakkında bilgi edinilmek istenilen tüm elemanların kümesidir. örneklem ise evrenin içerisinden alınan ve ölçüm yapılan küçük alt gruptur. örneklemin evreni ne kadar iyi temsil ettiğine temsiliyet denir, yanlı örneklem seçimleri evreni iyi temsil etmeyebilir.
+
+bir gözlemden diğerine değişebilen ve farklı değerler alabilen herhangi bir ölçüme değişken denir. bağımsız değişkenlere bağlı olan değişkenlere bağımlı değişken denir.
+
+bir gruptaki ölçümlerin diğer gruptaki ölçümlerle hiçbir bağlantısının ve eşleşmesinin olmadığı örnekleme **bağımsız örneklem** denir: kadın ve erkeklerin boy ortalaması, deney ve plasebo gruplarına verilen tansiyon ilacının etkisi gibi. ölçümlerin aynı bireyden tekrar tekrar alınması veya aralarında bir bağ olan eşleştirilmiş ikililerden oluşan örnekleme **bağımlı örneklem** denir: aynı 30 hastanın diyetten önceki ve sonraki kiloları, aynı kişinin sol ve sağ göz görme keskinliği, hastalara tansiyon ilacı verildikten sonra hastalardan her saat başı ölçülen tansiyon değerleri gibi.
+
+veri ve değişkenlere ilişkisel analizler (tek örneklem/örneklem grupları bazında) veya grup karşılaştırmaları (tek örneklem/çok örneklem) gibi testler yapılabilir. böylece elimizdeki örneklemden yola çıkarak popülasyon hakkında belirli olasılıklarla yorum yapabiliriz.
+
+verilerin parametrik olup olmaması seçeceğimiz istatistiksel test açısından önemlidir. elimizde parametrik veriler var ise dağılım çeşidine göre verilerin şeklini, konumunu ve tüm olasılıkları belirli matematiksel parametrelerle tanımlayabiliriz (matematiksel fonksiyon gibi, elimizdeki değişkenlerle sonucu bulabiliriz). **parametrik yaklaşım ile verileri belirli bir matematiksel kalıba (genelde normal dağılıma) uyduğunu varsayarız ve az veriyle güçlü tahminler yapabiliriz. parametrik olmayan verileri matematiksel olarak teorik bir şekle sokamayacağımızı varsayar ve verinin sıralamaları veya medyanı ile işlem yaparız. aşırı çarpık veya aykırı değer içeren verilerde daha güvenilirdir.**
